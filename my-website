@@ -1,1 +1,10 @@
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mijn Eerste Website</title>
+  </head>
+  <body>
+    <h1>Hallo, ik ben een toekomstig ethisch hacker!</h1>
+    <p>Ik ben 10 jaar en leer programmeren. 💻</p>
+  </body>
+</html>
