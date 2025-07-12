@@ -1,28 +1,71 @@
 <!DOCTYPE html>
 <html lang="nl">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Mijn Eerste Website</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f8ff;
-        color: #333;
-        text-align: center;
-        padding: 50px;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <title>Mijn Eerste Website</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      color: #333;
+      text-align: center;
+      padding: 50px;
+    }
 
-      h1 {
-        color: #0077cc;
-      }
+    h1 {
+      color: #0077cc;
+    }
 
-      p {
-        font-size: 20px;
+    input {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    #resultaat {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hello! this is my website</h1>
+  <h1>and i am gonna hack it!</h1>
+
+  <h2>Admin Login</h2>
+  <input type="text" id="username" placeholder="Gebruikersnaam"><br>
+  <input type="password" id="password" placeholder="Wachtwoord"><br>
+  <button onclick="checkLogin()">Inloggen</button>
+  <p id="resultaat"></p>
+
+  <script>
+    // SHA-256 hash van 'admin123'
+    const juisteHash = "6c3b6a6e82a184cb57fd3f2bc406ffcc5f90a362c085e80f7f2d1d71e80f350d";
+
+    async function hash(text) {
+      const msgUint8 = new TextEncoder().encode(text);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      return hashHex;
+    }
+
+    async function checkLogin() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const passwordHash = await hash(password);
+
+      if (username === "admin" && passwordHash === juisteHash) {
+        document.getElementById("resultaat").innerText = "✅ Je bent ingelogd als admin!";
+      } else {
+        document.getElementById("resultaat").innerText = "❌ Verkeerde gebruikersnaam of wachtwoord!";
       }
-    </style>
-  </head>
-  <body>
-    <h1>Hello! this is my website</h1>
-  <h1>and i am gonna hack it! </h1>
-  </body>
+    }
+  </script>
+</body>
 </html>
